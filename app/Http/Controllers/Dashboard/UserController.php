@@ -14,6 +14,8 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+
     public function index(User $users, Request $request)
     {
         $q = $request->input('q');
