@@ -1,0 +1,61 @@
+body {
+  background: white;
+  color: #656e88;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin-bottom: 0px;
+}
+
+.main-content {
+  background: #e8eaed;
+  min-height: 100vh;
+}
+
+.nav-link {
+  color: black;
+  opacity: 0.7;
+  padding: 1em 0em;
+}
+
+.nav-link:hover {
+  opacity: 1;
+  color: #000;
+}
+
+.nav-link.active {
+  opacity: 1;
+  color: #000;
+  font-weight: bold;
+}
+
+.card-header h3 {
+  font-size: 1em;
+  letter-spacing: 1px;
+}
+
+table.table tr th {
+  color: #737373;
+}
+
+table.table tr td {
+  color: #737373;
+  font-size: 0.9em;
+  vertical-align: middle;
+}
+
+.pagination {
+  justify-content: center;
+  align-items: center;
+}
+
+.form-group label {
+  margin-bottom: 0px;
+  font-weight: bold;
+}
+
