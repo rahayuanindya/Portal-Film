@@ -13,9 +13,23 @@ class TheatersController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request, Theaters $theaters)
     {
-        //
+        $q = $request->input('q');
+
+        $active = "Theaters";
+
+        $theaters = $theaters->when($q, function($query) use($q){
+            return $query->where('theaters', 'like', '%'.$q.'%');
+        })->paginate(10);
+
+        $request = $request->all();
+
+        return view('dashboard/theaters/list', [
+            'active' => $active,
+            'request'=> $request,
+            'theaters'=> $theaters
+        ]);
     }
 
     /**
@@ -25,7 +39,7 @@ class TheatersController extends Controller
      */
     public function create()
     {
-        //
+        return view('dashboard.theaters.store');
     }
 
     /**

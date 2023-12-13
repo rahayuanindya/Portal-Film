@@ -13,10 +13,13 @@ Auth::routes();
 Route::middleware('auth')->group(function(){
     
     Route::get('/dashboard', 'Dashboard\DashboardController@index')->name('dashboard');
-
-    Route::get('/dashboard/theaters', 'Dashboard\DashboardController@index')->name('dashboard.theaters');
     Route::get('/dashboard/tickets', 'Dashboard\DashboardController@index')->name('dashboard.tickets');
     
+    //theaters
+    Route::get('/dashboard/theaters', 'Dashboard\TheatersController@index')->name('dashboard.theaters');
+    Route::get('/dashboard/theaters/create', 'Dashboard\TheatersController@create')->name('dashboard.theaters.create');
+
+
     //Movie
     Route::get('/dashboard/movies', 'Dashboard\MovieController@index')->name('dashboard.movies');
     Route::get('/dashboard/movies/create', 'Dashboard\MovieController@create')->name('dashboard.movies.create');

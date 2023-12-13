@@ -2,8 +2,8 @@
 
 return [
 
-    'store' => 'Data Movie :title Berhasil Ditambahkan',
-    'update' => 'Data Movie Berhasil Diupdate',
-    'delete' => 'Data Movie Berhasil Didelete',
-
+    'store' => 'Penambahan Data :title Berhasil Ditambahkan',
+    'update' => 'Penambahan Data :title Berhasil Diupdate',
+    'delete' => 'Penambahan Data :title Berhasil Didelete',
+    'no_data' => 'Belum Ada Data :module',
 ];
