@@ -1,7 +1,9 @@
 @extends('layouts.dashboard')
 
 @section('content')
-
+    <div class="mb-2">
+        <a href="{{ route('dashboard.movies.create') }}" class="btn btn-primary btn-sm"><i class="fa fa-plus"></i> Tambah Movie</a>
+    </div>
     <div class="card">
         <div class="card-header">
             <div class="row">
@@ -37,7 +39,8 @@
                 <tr>
                     <th scope="row">{{ ($movies->currentPage() - 1) * $movies->perPage() + $loop->iteration }}</th>
                     <td>{{ $item->title }}</td>
-                    <td>{{ $item->thumbnail }}</td>
+                    <td> <img src="{{ asset('storage/movies/'.$item->thumbnail) }}" alt="">
+                    </td>
                     <td> 
                         <a href="{{ route('dashboard.movies.edit', ['id' => $item->id]) }}" class="btn btn-success btn-sm" title="Edit">
                             <i class="fas fa-pen"></i>
