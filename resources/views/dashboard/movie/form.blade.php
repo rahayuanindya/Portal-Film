@@ -19,19 +19,21 @@
         <div class="card-body">
            <div class="row">
             <div class="col-md-8 offset-2">
-                <form action="{{ route($url, $movie->id) }}" method="post" enctype="multipart/form-data">
+                <form action="{{ route($url, $movie->id ?? '') }}" method="post" enctype="multipart/form-data">
                     @csrf
-                    @method('PUT')
+                    @if (isset($movie))
+                        @method('PUT')
+                    @endif
                     <div class="form-group">
                         <label for="name">Title</label>
-                        <input type="text" name="title" class="form-control @error('title') {{ 'is-invalid' }} @enderror" value="{{ old('title') ?? $movie->title }}">
+                        <input type="text" name="title" class="form-control @error('title') {{ 'is-invalid' }} @enderror" value="{{ old('title') ?? $movie->title ?? '' }}">
                         @error('title')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
                     </div>
                     <div class="form-group">
                         <label for="email">Description</label>
-                        <textarea name="description" class="form-control @error('description') {{ 'is-invalid' }} @enderror">{{ old('description') ?? $movie ->description }}</textarea>
+                        <textarea name="description" class="form-control @error('description') {{ 'is-invalid' }} @enderror">{{ old('description') ?? $movie->description ?? '' }}</textarea>
                         @error('description')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
@@ -54,6 +56,8 @@
            </div>
         </div>
     </div>
+
+    @if (isset($movie))
     <div class="modal fade" id="deleteModal">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -78,4 +82,5 @@
             </div>
         </div>
     </div>
+    @endif
 @endsection
