@@ -19,25 +19,26 @@
         <div class="card-body">
            <div class="row">
             <div class="col-md-8 offset-2">
-                <form action="{{ route('dashboard.movies.store') }}" method="post" enctype="multipart/form-data">
+                <form action="{{ route($url, $movie->id) }}" method="post" enctype="multipart/form-data">
                     @csrf
+                    @method('PUT')
                     <div class="form-group">
                         <label for="name">Title</label>
-                        <input type="text" name="title" id="" class="form-control">
+                        <input type="text" name="title" class="form-control @error('title') {{ 'is-invalid' }} @enderror" value="{{ old('title') ?? $movie->title }}">
                         @error('title')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
                     </div>
                     <div class="form-group">
                         <label for="email">Description</label>
-                        <textarea name="description" class="form-control"></textarea>
+                        <textarea name="description" class="form-control @error('description') {{ 'is-invalid' }} @enderror">{{ old('description') ?? $movie ->description }}</textarea>
                         @error('description')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
                     </div>
                     <div class="form-group mt-4">
                         <div class="custom-file">
-                            <input type="file" name="thumbnail" class="custom-file-input">
+                            <input type="file" name="thumbnail" class="custom-file-input" value="{{ old('thumbnail') }}">
                             <label for="thumbnail" class="custom-file-label">Thumbnail</label>
                             @error('thumbnail')
                                 <span class="text-danger">{{ $message }}</span>
@@ -46,7 +47,7 @@
                     </div>
                     <div class="form-group mb-0">
                         <button type="button" class="btn btn-sm btn-secondary" onclick="window.history.back()">Cancel</button>
-                        <button type="submit" class="btn btn-success btn-sm">Create</button>
+                        <button type="submit" class="btn btn-success btn-sm">{{ $button }}</button>
                     </div>
                 </form>
             </div>

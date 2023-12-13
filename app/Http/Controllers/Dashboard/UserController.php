@@ -68,10 +68,10 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($id, User $user)
     {
         $active = 'Users';
-        $user = USER::find($id);
+        $user = $user::find($id);
         return view('dashboard/user/form', ['active'=> $active, 'user' => $user]);
     }
 
@@ -92,7 +92,7 @@ class UserController extends Controller
         ]);
 
         if($validator->fails()){
-            return redirect('dashboard/user/edit/'.$id)
+            return redirect('dashboard/users/'.$id)
             ->withErrors($validator)
             ->withInput();
         } else {

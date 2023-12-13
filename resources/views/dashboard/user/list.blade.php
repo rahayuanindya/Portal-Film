@@ -42,7 +42,7 @@
                     <td>{{ $item->created_at }}</td>
                     <td>{{ $item->updated_at }}</td>
                     <td> 
-                        <a href="{{ route('dashboard.users.edit', ['id' => $item->id]) }}" class="btn btn-success btn-sm" title="Edit">
+                        <a href="{{ route('dashboard.users.edit', $item->id) }}" class="btn btn-success btn-sm" title="Edit">
                             <i class="fas fa-pen"></i>
                         </a>
                     </td>
