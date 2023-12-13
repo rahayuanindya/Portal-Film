@@ -4,6 +4,14 @@
     <div class="mb-2">
         <a href="{{ route('dashboard.movies.create') }}" class="btn btn-primary btn-sm"><i class="fa fa-plus"></i> Tambah Movie</a>
     </div>
+
+    @if (session()->has('messages'))
+    <div class="alert alert-success">
+        <strong>{{ session()->get('messages') }}</strong>
+        <button type="button" class="close" data-dismiss="alert"><span>&times;</span></button>
+    </div>
+    @endif
+
     <div class="card">
         <div class="card-header">
             <div class="row">

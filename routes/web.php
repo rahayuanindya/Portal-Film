@@ -14,8 +14,6 @@ Route::middleware('auth')->group(function(){
     
     Route::get('/dashboard', 'Dashboard\DashboardController@index')->name('dashboard');
 
-    
-
     Route::get('/dashboard/theaters', 'Dashboard\DashboardController@index')->name('dashboard.theaters');
     Route::get('/dashboard/tickets', 'Dashboard\DashboardController@index')->name('dashboard.tickets');
     
