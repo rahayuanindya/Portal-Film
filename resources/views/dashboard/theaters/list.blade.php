@@ -45,7 +45,7 @@
                 @foreach ($theaters as $item)
                 <tr>
                     <td>{{ $item->theaters }}</td>
-                    <td>{{ $item->address }}</td>
+                    <td>{{ $item->addresss }}</td>
                     <td> 
                         <a href="{{ route('dashboard.theaters.edit', $item->id) }}" class="btn btn-success btn-sm" title="Edit">
                             <i class="fas fa-pen"></i>

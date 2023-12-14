@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
 use App\Models\Theaters;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 
 class TheatersController extends Controller
@@ -40,10 +41,11 @@ class TheatersController extends Controller
     public function create()
     {
         $active = "Theaters";
+
         return view('dashboard.theaters.form', [
             'button'   => 'Create',
             'url'      => 'dashboard.theaters.store',
-            'active'   => $active,
+            'active'   =>  $active,
         ]);
     }
 
@@ -53,9 +55,28 @@ class TheatersController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, Theaters $theaters)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'theaters'  => 'required|unique:App\Models\theaters,theaters',
+            'addresss'   => 'required',
+            'status'    => 'required'
+        ]);
+
+        if($validator->fails()){
+            return redirect()
+                    ->route('dashboard.theaters.create')
+                    ->withErrors($validator)
+                    ->withInput();
+        } else {
+            $theaters->theaters = $request->input('theaters');
+            $theaters->addresss = $request->input('addresss');
+            $theaters->status = $request->input('status');
+            $theaters->save();
+            return redirect()
+                        ->route('dashboard.theaters')
+                        ->with('messages', __('messages.store', ['title' => $request->input('theaters')]));
+        }
     }
 
     /**
@@ -77,7 +98,14 @@ class TheatersController extends Controller
      */
     public function edit(Theaters $theaters)
     {
-        //
+        $active = "Theaters";
+
+        return view('dashboard.theaters.form', [
+            'theaters' => $theaters,
+            'active'   => $active,
+            'url'      => 'dashboard.theaters.update',
+            'button'   => 'Update'
+        ]);
     }
 
     /**
@@ -89,7 +117,26 @@ class TheatersController extends Controller
      */
     public function update(Request $request, Theaters $theaters)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'theaters'  => 'required|unique:App\Models\theaters,theaters',$theaters->id,
+            'addresss'   => 'required',
+            'status'    => 'required'
+        ]);
+
+        if($validator->fails()){
+            return redirect()
+                    ->route('dashboard.theaters.update', $theaters->id)
+                    ->withErrors($validator)
+                    ->withInput();
+        } else {
+            $theaters->theaters = $request->input('theaters');
+            $theaters->addresss = $request->input('addresss');
+            $theaters->status = $request->input('status');
+            $theaters->save();
+            return redirect()
+                        ->route('dashboard.theaters')
+                        ->with('messages', __('messages.update', ['title' => $theaters->theaters]));
+        }
     }
 
     /**
@@ -100,6 +147,10 @@ class TheatersController extends Controller
      */
     public function destroy(Theaters $theaters)
     {
-        //
+        $title = $theaters->theaters;
+        $theaters->delete();
+        return redirect()
+                ->route('dashboard.theaters')
+                ->with('messages', __('messages.delete', ['title' => $title]));
     }
 }

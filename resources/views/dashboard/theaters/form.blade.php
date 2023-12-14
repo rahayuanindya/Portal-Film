@@ -26,18 +26,34 @@
                     @endif
                     <div class="form-group">
                         <label for="name">Theaters</label>
-                        <input type="text" name="title" class="form-control @error('theaters') {{ 'is-invalid' }} @enderror" value="{{ old('theaters') ?? $theaters->theaters ?? '' }}">
-                        @error('title')
+                        <input type="text" name="theaters" class="form-control @error('theaters') {{ 'is-invalid' }} @enderror" value="{{ old('theaters') ?? $theaters->theaters ?? '' }}">
+                        @error('theaters')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
                     </div>
                     <div class="form-group">
-                        <label for="email">Description</label>
-                        <textarea name="description" class="form-control @error('description') {{ 'is-invalid' }} @enderror">{{ old('description') ?? $theaters->description ?? '' }}</textarea>
-                        @error('description')
+                        <label for="email">Address</label>
+                        <textarea name="addresss" class="form-control @error('addresss') {{ 'is-invalid' }} @enderror">{{ old('addresss') ?? $theaters->addresss ?? '' }}</textarea>
+                        @error('addresss')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
                     </div>
+                    <div class="mb-2">
+                    <div class="form-group mb-0">
+                        <label for="status">Status</label>
+                    </div>
+                        <div class="form-check form-check-inline">
+                            <input type="radio" name="status" id="" class="form-check-input" value="active" id="active" @if ((old('status') ?? $theaters->status ?? '') == 'active') checked @endif>
+                            <label for="active" class="form-check-label">Active</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input type="radio" name="status" id="" class="form-check-input" value="inactive" id="inactive" @if ((old('status') ?? $theaters->status ?? '') == 'inactive') checked @endif>
+                            <label for="inactive" class="form-check-label">Inactive</label>
+                        </div>
+                    </div>
+                    @error('status')
+                        <span class="text-danger">{{ $message }}</span>
+                    @enderror
                     <div class="form-group mb-0">
                         <button type="button" class="btn btn-sm btn-secondary" onclick="window.history.back()">Cancel</button>
                         <button type="submit" class="btn btn-success btn-sm">{{ $button }}</button>
