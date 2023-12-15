@@ -50,6 +50,8 @@
                         <a href="{{ route('dashboard.theaters.edit', $item->id) }}" class="btn btn-success btn-sm" title="Edit">
                             <i class="fas fa-pen"></i>
                         </a>
+                        <a href="{{ route('dashboard.theaters.arrange.movies', $item->id) }}" title="Arrange Movie" class="btn btn-warning btn-sm">
+                        <i class="fas fa-film"></i></a>
                     </td>
                 </tr>
             @endforeach
