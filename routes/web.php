@@ -34,12 +34,10 @@ Route::middleware('auth')->group(function(){
     //Arrange Movie
     Route::get('/dashboard/theaters/arrange/movies/{theaters}', 'Dashboard\ArrangeMovieController@index')->name('dashboard.theaters.arrange.movies');
     Route::get('/dashboard/theaters/arrange/movies/create/{theaters}', 'Dashboard\ArrangeMovieController@create')->name('dashboard.theaters.arrange.movies.create');
-    Route::post('/dashboard/theaters/arrange/movies', 'Dashboard\ArrangeMovieController@store')->name('dashboard.theaters.arrange.store');
+    Route::post('/dashboard/theaters/arrange/movies', 'Dashboard\ArrangeMovieController@store')->name('dashboard.theaters.arrange.movies.store');
     Route::get('/dashboard/theaters/arrange/movies/{arrangeMovie}', 'Dashboard\ArrangeMovieController@edit')->name('dashboard.theaters.arrange.movies.edit');
     Route::put('/dashboard/theaters/arrange/movies/{arrangeMovie}', 'Dashboard\ArrangeMovieController@update')->name('dashboard.theaters.arrange.movies.update');
     Route::delete('/dashboard/theaters/arrange/movies/{arrangeMovie}', 'Dashboard\ArrangeMovieController@destroy')->name('dashboard.theaters.arrange.movies.delete');
-
-
 
     //users 
     Route::get('/dashboard/users', 'Dashboard\UserController@index')->name('dashboard.users');

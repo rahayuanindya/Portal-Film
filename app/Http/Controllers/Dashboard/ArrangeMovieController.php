@@ -3,9 +3,12 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Models\Theaters;
+use App\Models\Movie;
 use App\Models\ArrangeMovie;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Validator;
+
 
 class ArrangeMovieController extends Controller
 {
@@ -38,9 +41,20 @@ class ArrangeMovieController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
-        //
+    public function create(Theaters $theaters)
+    {   
+        $active = "Theaters";
+
+        $movies = Movie::get();
+
+        return view('dashboard/arrange_movie/form',[
+            'theaters'  =>  $theaters,
+            'url'       =>  'dashboard.theaters.arrange.movies.store',
+            'theaters'    =>  $theaters,
+            'button'    => 'Create',
+            'active'     => $active,
+            'movies'     => $movies
+        ]);
     }
 
     /**
@@ -51,7 +65,22 @@ class ArrangeMovieController extends Controller
      */
     public function store(Request $request)
     {
-        //
+       $validator = Validator::make($request->all(), [
+            'studio'  => 'required',
+            'movie_id'=> 'required',
+            'price' => 'required',
+            'rows' => 'required',
+            'columns'   =>  'required',
+            'schedules' => 'required',
+            'status'    => 'required'
+        ]);
+
+        if($validator->fails()){
+            return redirect()
+                    ->route('dashboard.theaters.arrange.movies.create', $request->input('theaters_id'))
+                    ->withErrors($validator)
+                    ->withInput();
+        } 
     }
 
     /**
