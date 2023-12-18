@@ -63,16 +63,18 @@ class ArrangeMovieController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, ArrangeMovie $arrangeMovie)
     {
-       $validator = Validator::make($request->all(), [
-            'studio'  => 'required',
-            'movie_id'=> 'required',
-            'price' => 'required',
-            'rows' => 'required',
-            'columns'   =>  'required',
-            'schedules' => 'required',
-            'status'    => 'required'
+        
+       $validator = Validator::make($request->all(), [    
+            'studio'        => 'required',
+            'theaters_id'   => 'required',
+            'movies_id'     => 'required',
+            'price'         => 'required',
+            'rows'          => 'required',
+            'columns'       => 'required',
+            'schedules'     => 'required',
+            'status'        => 'required'
         ]);
 
         if($validator->fails()){
@@ -80,7 +82,25 @@ class ArrangeMovieController extends Controller
                     ->route('dashboard.theaters.arrange.movies.create', $request->input('theaters_id'))
                     ->withErrors($validator)
                     ->withInput();
-        } 
+        } else {
+            $seats = [
+                'rows' => $request->input('rows'),
+                'columns' => $request->input('columns')
+            ];
+
+            $arrangeMovie->theaters_id  = $request->input('theaters_id');
+            $arrangeMovie->movies_id    = $request->input('movies_id');
+            $arrangeMovie->studio       = $request->input('studio');
+            $arrangeMovie->price        = $request->input('price');
+            $arrangeMovie->status       = $request->input('status');
+            $arrangeMovie->seats        = json_encode($seats);
+            $arrangeMovie->schedules    = json_encode($request->input('schedules'));
+            $arrangeMovie->save();
+
+            return redirect()
+                    ->route('dashboard.theaters.arrange.movies', $request->input('theaters_id'))
+                    ->with('messages', __('messages.store', ['title' => $request->input('studio')]));
+        }
     }
 
     /**

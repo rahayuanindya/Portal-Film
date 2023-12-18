@@ -27,19 +27,19 @@
                     <input type="hidden" name="theaters_id" id="" value="{{ $theaters->id }}">
                     <div class="form-group">
                         <label for="movie">Movie</label>
-                    <select name="movie_id" id="" class="form-control">
+                        <select name="movies_id" class="form-control">
                         <option value="">Pilih Movie</option>
                         @foreach ($movies as $movie)
-                            @if($movie->id == old('movie_id'))
+                            @if($movie->id == old('movies_id'))
                                  <option value="{{ $movie->id }}" selected>{{ $movie->title }}</option>
                             @else
-                                <option value="{{ $movie->id }}" selected>{{ $movie->title }}</option>
+                                <option value="{{ $movie->id }}">{{ $movie->title }}</option>
                                 @endif
                         @endforeach
                     </select>
-                    @error('movie_id')
-                    <span class="text-danger">{{ $message }}</span>
-                @enderror
+                    @error('movies_id')
+                        <span class="text-danger">{{ $message }}</span>
+                    @enderror
                     </div>
                     <div class="form-group">
                         <label for="name">Studio</label>
@@ -66,7 +66,7 @@
                             @enderror
                         </div>
                         <div class="col-5">
-                            <input type="number" name="" id="" placeholder="Columns" class="form-control @error('columns') {{ 'columns' }} @enderror">
+                            <input type="number" name="columns" id="" placeholder="Columns" class="form-control @error('columns') {{ 'columns' }} @enderror">
                             @error('columns')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
@@ -83,14 +83,12 @@
                             <span class="text-danger">{{ $message }}</span>
                          @enderror
                     </div>
-                    
-
                     <div class="mb-2">
                     <div class="form-group mb-0">
                         <label for="status">Status</label>
                     </div>
                         <div class="form-check form-check-inline">
-                            <input type="radio" name="status" id="" class="form-check-input" value="coming soon" id="coming soon" @if ((old('status') ?? $theaters->status ?? '') == 'coming soon') checked @endif>
+                            <input type="radio" name="status" id="" class="form-check-input" value="coming soon" id="cooming soon" @if ((old('status') ?? $theaters->status ?? '') == 'cooming soon') checked @endif>
                             <label for="active" class="form-check-label">Coming soon</label>
                         </div>
                         <div class="form-check form-check-inline">
